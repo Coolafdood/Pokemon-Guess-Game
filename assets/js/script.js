@@ -126,5 +126,35 @@ function canonicalize(str) {
   function randInt(min, maxInclusive) {
     return Math.floor(Math.random() * (maxInclusive - min + 1)) + min;
   }
+  // loadRandomPokemon: loads a random Pokémon and updates the UI
+  async function loadRandomPokemon() {
+    clearMessage();
+    current.revealed = false;
+    guessInput.value = '';
+    guessInput.focus();
+    applySilhouette(true);
+    let tries = 0;
+    while (tries < 5) {
+      tries++;
+      const id = randInt(MIN_ID, MAX_ID);
+      try {
+        const p = await fetchPokemon(id);
+        if (!p.image) continue; // skip if no artwork
+        current.id = p.id;
+        current.name = p.name;
+        current.displayName = p.displayName;
+        current.types = p.types;
+        imageEl.src = p.image;
+        imageEl.alt = 'Hidden Pokémon silhouette';
+        applySilhouette(true);
+        return;
+      } catch (e) {
+        // retry another random Pokémon if fetch fails
+      }
+    }
+    // Fallback: show a Pokéball and error message
+    imageEl.src = 'assets/images/pokeball.png';
+    setMessage('Could not load a Pokémon. Check your connection and try again.', 'error');
+  }
 
 })();
