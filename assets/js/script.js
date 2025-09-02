@@ -53,4 +53,35 @@ function canonicalize(str) {
 
 // Add any additional functions or code here
 
+  // setMessage: display feedback to the user
+  function setMessage(html, type = 'info') {
+    resultMessage.className = '';
+    resultMessage.classList.add('alert');
+    const cls = {
+      success: 'alert-success',
+      error: 'alert-danger',
+      info: 'alert-secondary',
+    }[type] || 'alert-secondary';
+    resultMessage.classList.add(cls);
+    resultMessage.innerHTML = html;
+  }
+
+  // clearMessage: remove any previous messages
+  function clearMessage() {
+    resultMessage.className = '';
+    resultMessage.textContent = '';
+  }
+
+  // setScore: update score and high score
+  function setScore(newScore) {
+    score = newScore;
+    scoreEl.textContent = score;
+    if (score > highScore) {
+      highScore = score;
+      localStorage.setItem(LS_KEY, String(highScore));
+      highScoreEl.textContent = highScore;
+    }
+  }
+
 })(); // Close the IIFE
+
