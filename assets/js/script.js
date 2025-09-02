@@ -157,4 +157,57 @@ function canonicalize(str) {
     setMessage('Could not load a Pokémon. Check your connection and try again.', 'error');
   }
 
+  // ------------------------- 
+  // Game Logic 
+  // ------------------------- 
+
+  // Canonicalize Pokémon names for comparison (remove special characters, accents, etc.)
+  function alias(str) {
+    return canonicalize(str);
+  }
+
+  // checkGuess: compare player input to the actual Pokémon name
+  function checkGuess() {
+    const userGuess = guessInput.value.trim();
+    if (!userGuess) {
+      setMessage('Type a name first 🙂', 'info');
+      return;
+    }
+    const expected = alias(current.name);
+    const provided = alias(userGuess);
+    if (provided === expected) {
+      applySilhouette(false); // reveal Pokémon
+      setMessage(`Correct! It's <strong>${current.displayName}</strong>!`, 'success');
+      setScore(score + 1);
+      current.revealed = true;
+    } else {
+      // gentle hint: first letter + type
+      const firstLetter = current.displayName[0].toUpperCase();
+      const typeHint = current.types?.length ? ` Type hint: <em>${current.types.join(' / ')}</em>.` : '';
+      setMessage(`Not quite. Try again! Hint: starts with <strong>${firstLetter}</strong>.${typeHint}`, 'error');
+    }
+  }
+
+  // nextPokemon: load a new random Pokémon without resetting score
+  function nextPokemon() {
+    loadRandomPokemon();
+  }
+
+  // newGame: reset score and load a fresh Pokémon
+  function newGame() {
+    setScore(0);
+    loadRandomPokemon();
+  }
+
+  // Event listeners
+  submitBtn.addEventListener('click', checkGuess);
+  guessInput.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') checkGuess();
+  });
+  nextBtn.addEventListener('click', nextPokemon);
+  newGameBtn.addEventListener('click', newGame);
+
+  // Start the game on load
+  loadRandomPokemon();
+
 })();
