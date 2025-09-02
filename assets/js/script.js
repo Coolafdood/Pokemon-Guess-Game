@@ -83,5 +83,16 @@ function canonicalize(str) {
     }
   }
 
-})(); // Close the IIFE
+  // applySilhouette: hide or reveal the Pokémon image
+  function applySilhouette(on) {
+    if (!imageEl) return;
+    if (on) {
+      imageEl.classList.add('silhouette'); // CSS applies blacked-out effect
+      imageEl.setAttribute('aria-hidden', 'true'); // accessibility
+    } else {
+      imageEl.classList.remove('silhouette');
+      imageEl.removeAttribute('aria-hidden');
+    }
+  }
 
+})(); // Close the IIFE
