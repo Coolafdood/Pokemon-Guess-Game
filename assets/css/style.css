@@ -43,4 +43,23 @@ h1 {
   border: 1px solid #444;
   background: #161b22;
   color: #e6edf3;
+} 
+button {
+  margin: 0.25rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
 }
+
+.btn-primary { background-color: #238636; }
+.btn-primary:hover { background-color: #2ea043; }
+
+.btn-success { background-color: #2ea043; }
+.btn-success:hover { background-color: #34c759; }
+
+.btn-secondary { background-color: #6e7681; }
+.btn-secondary:hover { background-color: #8b949e; }
+
