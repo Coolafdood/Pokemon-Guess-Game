@@ -211,3 +211,4 @@ function canonicalize(str) {
   loadRandomPokemon();
 
 })();
+// ------------------------- // Event Listeners // -------------------------
