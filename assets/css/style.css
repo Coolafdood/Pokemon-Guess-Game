@@ -73,4 +73,9 @@ button {
 #scoreboard p {
   margin: 0.25rem 0;
 }
+@media (max-width: 600px) {
+  #pokemon-image { min-height: 220px; }
+  #pokemon-guess { max-width: 100%; }
+  button { width: 48%; margin: 0.25rem 1%; }
+}
 
