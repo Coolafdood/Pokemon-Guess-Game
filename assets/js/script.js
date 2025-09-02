@@ -95,4 +95,36 @@ function canonicalize(str) {
     }
   }
 
-})(); // Close the IIFE
+  // -------------------------
+  // API & Random Pokémon
+  // -------------------------
+
+  // fetchPokemon: get Pokémon data from PokéAPI
+  async function fetchPokemon(id) {
+    const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+    const res = await fetch(url); // fetch JSON data
+    if (!res.ok) throw new Error('Failed to fetch Pokémon');
+    const data = await res.json();
+    // Choose best available image: official → dream_world → default
+    const artwork =
+      data.sprites?.other?.['official-artwork']?.front_default ||
+      data.sprites?.other?.dream_world?.front_default ||
+      data.sprites?.front_default;
+    return {
+      id: data.id,
+      name: data.name,
+      displayName: data.name
+        .split('-')
+        .map(s => (s.length ? s[0].toUpperCase() + s.slice(1) : s))
+        .join(' '),
+      image: artwork,
+      types: data.types?.map(t => t.type.name) || [],
+    };
+  }
+
+  // randInt: generate a random integer between min and max (inclusive)
+  function randInt(min, maxInclusive) {
+    return Math.floor(Math.random() * (maxInclusive - min + 1)) + min;
+  }
+
+})();
