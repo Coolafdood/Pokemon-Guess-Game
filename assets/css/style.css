@@ -70,4 +70,7 @@ button {
   text-align: center;
   font-weight: 500;
 }
+#scoreboard p {
+  margin: 0.25rem 0;
+}
 
