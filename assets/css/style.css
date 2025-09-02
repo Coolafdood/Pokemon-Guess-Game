@@ -12,3 +12,24 @@ h1 {
   margin: 2rem 0;
   color: #f0f6fc;
 }
+#pokemon-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 280px;
+  padding: 16px;
+  margin-bottom: 1rem;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 1rem;
+  transition: background 0.3s ease;
+}
+
+#pokemon-image img {
+  max-height: 260px;
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.silhouette {
+  filter: brightness(0) contrast(100%);
+  transform: scale(0.98);
+}
