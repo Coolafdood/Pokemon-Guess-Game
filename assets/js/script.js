@@ -1,20 +1,56 @@
+// =========================
+// Pokémon Guess Game JS
+// =========================
+
+// Wrap everything in an immediately-invoked function expression (IIFE)
+// Purpose: keeps variables private so they don't pollute the global scope
 (function () {
-  const imageEl = document.querySelector('#pokemon-image img');
-  const guessInput = document.getElementById('pokemon-guess');
-  const submitBtn = document.getElementById('submit-guess');
-  const nextBtn = document.getElementById('next-pokemon');
-  const newGameBtn = document.getElementById('new-game');
-  const resultMessage = document.getElementById('result-message');
-  const scoreEl = document.getElementById('score');
-  const highScoreEl = document.getElementById('high-score');
 
-  const MIN_ID = 1;
-  const MAX_ID = 1010;
-  let current = { id: null, name: null, displayName: null, revealed: false };
-  let score = 0;
-  const LS_KEY = 'pokemonGuessHighScore';
-  let highScore = Number(localStorage.getItem(LS_KEY) || 0);
-  highScoreEl.textContent = highScore;
+  // -------------------------
+  // DOM Elements
+  // -------------------------
+  const imageEl = document.querySelector('#pokemon-image img'); // Pokémon image element
+  const guessInput = document.getElementById('pokemon-guess');  // Input field for user guesses
+  const submitBtn = document.getElementById('submit-guess');    // Submit guess button
+  const nextBtn = document.getElementById('next-pokemon');      // Load next Pokémon button
+  const newGameBtn = document.getElementById('new-game');       // Reset game button
+  const resultMessage = document.getElementById('result-message'); // Area to show success/error messages
+  const scoreEl = document.getElementById('score');             // Current score display
+  const highScoreEl = document.getElementById('high-score');    // High score display
 
-  // ... JS logic here (fetchPokemon, loadRandomPokemon, checkGuess, etc.)
-})();
+  // -------------------------
+  // Game Constants & State
+  // -------------------------
+  const MIN_ID = 1;      // First Pokémon ID (Bulbasaur)
+  const MAX_ID = 1010;   // Last known Pokémon ID (as of Gen 9)
+
+  // Tracks the currently displayed Pokémon
+  let current = {
+    id: null,           // Pokémon ID
+    name: null,         // Pokémon API slug (e.g., "pikachu")
+    displayName: null,  // Capitalized display name (e.g., "Pikachu")
+    revealed: false,    // Whether silhouette is removed
+  };
+
+  let score = 0;  // Player's current score
+  const LS_KEY = 'pokemonGuessHighScore';  // Key to store high score in localStorage
+  let highScore = Number(localStorage.getItem(LS_KEY) || 0); // Load high score if available
+  highScoreEl.textContent = highScore;  // Show high score in DOM
+
+// Canonicalize Pokémon names for comparison (remove special characters, accents, etc.)
+function canonicalize(str) {
+  if (!str) return '';
+  return str
+    .toLowerCase()
+    .normalize('NFD') // separate accents
+    .replace(/[\u0300-\u036f]/g, '') // remove diacritics
+    .replace(/[.']/g, '') // remove periods/apostrophes
+    .replace(/[♀]/g, '-f') // convert female symbols
+    .replace(/[♂]/g, '-m') // convert male symbols
+    .replace(/\s+/g, '-') // spaces → hyphens
+    .replace(/[^a-z0-9-]/g, ''); // remove any other non-alphanumeric characters
+}
+
+// Add any additional functions or code here
+
+})(); // Close the IIFE
