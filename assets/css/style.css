@@ -1,7 +1,14 @@
-body { background: #0d1117; color: #e6edf3; }
-h1 { font-weight: 800; }
-#pokemon-image { display: flex; align-items: center; justify-content: center; min-height: 280px; padding: 16px; background: rgba(255, 255, 255, 0.04); border-radius: 1rem; }
-#pokemon-image img { max-height: 260px; transition: filter 300ms ease, transform 300ms ease; }
-.silhouette { filter: brightness(0) contrast(100%); transform: scale(0.98); }
-#pokemon-guess { text-transform: none; }
-.btn { margin-right: 6px; }
+body {
+  background: #0d1117;
+  color: #e6edf3;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+h1 {
+  font-weight: 800;
+  margin: 2rem 0;
+  color: #f0f6fc;
+}
